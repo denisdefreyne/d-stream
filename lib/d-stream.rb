@@ -1,7 +1,7 @@
 module DStream
   class Abstract
     def inspect
-      "<#{self.class.to_s}>"
+      "<#{self.class}>"
     end
   end
 
@@ -12,7 +12,7 @@ module DStream
     end
 
     def inspect
-      "<#{self.class.to_s} #{@sym.inspect}>"
+      "<#{self.class} #{@sym.inspect}>"
     end
 
     def apply(s)
