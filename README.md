@@ -154,15 +154,63 @@ history.each { |h| p h }
 
 The following functions create individual processors:
 
-* `map(&block)`
-* `buffer(size)`
-* `with_next`
-* `select(&block)`
-* `reduce(&block)`
-* `scan(init, &block)`
-* `flatten2`
-* `take(n)`
-* `zip(other)`
+* `map(&block)` (similar to `Enumerable#map`)
+
+    ```ruby
+    S.apply((1..5), S.map(&:odd?)).to_a
+    # => [true, false, true, false, true]
+    ```
+
+* `select(&block)` (similar to `Enumerable#select`)
+
+    ```ruby
+    S.apply((1..5), S.select(&:odd?)).to_a
+    # => [1, 3, 5]
+    ```
+
+* `reduce(&block)` (similar to `Enumerable#reduce`)
+
+    ```ruby
+    S.apply((1..5), S.reduce(&:+))
+    # => 15
+    ```
+
+* `take(n)` (similar to `Enumerable#take`)
+
+    ```ruby
+    S.apply((1..10), S.take(3)).to_a
+    # => [1, 2, 3]
+    ```
+
+* `zip(other)` (similar to `Enumerable#zip`):
+
+    ```ruby
+    S.apply((1..3), S.zip((10..13))).to_a
+    # => [[1, 10], [2, 11], [3, 12]]
+    ```
+
+* `buffer(size)` yields each stream element, but keeps an internal buffer of not-yet-yielded stream elements. This is useful when reading from a slow and bursty data source, such as a paginated HTTP API.
+
+* `with_next` yields an array containing the stream element and the next stream element, or nil when the end of the stream is reached:
+
+    ```ruby
+    S.apply((1..5), S.with_next).to_a
+    # => [[1, 2], [2, 3], [3, 4], [4, 5], [5, nil]]
+    ```
+
+* `scan(init, &block)` is similar to `reduce`, but rather than returning a single aggregated value, returns all intermediate aggregated values:
+
+    ```ruby
+    S.apply((1..5), S.scan(0, &:+)).to_a
+    # => [1, 3, 6, 10, 15]
+    ```
+
+* `flatten2` yields the stream element if it is not an array, otherwise yields the stream element array’s contents:
+
+    ```ruby
+    S.apply((1..5), S.with_next, S.flatten2).to_a
+    # => [1, 2, 2, 3, 3, 4, 4, 5, 5, nil]
+    ```
 
 To apply one or more processors to a stream, use `.apply`:
 
