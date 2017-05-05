@@ -1,3 +1,5 @@
 # D★Stream news
 
-Nothing yet.
+## 0.0.1 (2017-05-05)
+
+Initial release.
