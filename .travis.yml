@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+  - 2.3.3
+  - 2.4.0
+branches:
+  only:
+    - "master"
+cache: bundler
+sudo: false
+git:
+  depth: 1
