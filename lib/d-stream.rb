@@ -3,14 +3,6 @@ module DStream
     Transformers::SimpleB.new(:map, &block)
   end
 
-  def self.trickle(rate)
-    Transformers::Trickle.new(rate)
-  end
-
-  def self.burst(rate, size)
-    Transformers::Burst.new(rate, size)
-  end
-
   def self.buffer(size)
     Transformers::Buffer.new(size)
   end

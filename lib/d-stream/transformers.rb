@@ -49,69 +49,6 @@ module DStream::Transformers
     end
   end
 
-  class Trickle < Abstract
-    def initialize(rate)
-      @rate = rate
-    end
-
-    def apply(s)
-      q = SizedQueue.new(1)
-      stop = Object.new
-
-      t =
-        Thread.new do
-          Thread.current.abort_on_exception = true
-          s.each do |e|
-            q << e
-            sleep(1.0 / @rate)
-          end
-          q << stop
-        end
-
-      Enumerator.new do |y|
-        loop do
-          e = q.pop
-          break if stop.equal?(e)
-          y << e
-        end
-        t.join
-      end.lazy
-    end
-  end
-
-  class Burst < Abstract
-    def initialize(delay, size)
-      @delay = delay
-      @size = size
-    end
-
-    def apply(s)
-      q = SizedQueue.new(1)
-      stop = Object.new
-
-      t =
-        Thread.new do
-          Thread.current.abort_on_exception = true
-          i = 0
-          s.each do |e|
-            sleep(@delay) if (i % @size).zero?
-            q << e
-            i += 1
-          end
-          q << stop
-        end
-
-      Enumerator.new do |y|
-        loop do
-          e = q.pop
-          break if stop.equal?(e)
-          y << e
-        end
-        t.join
-      end.lazy
-    end
-  end
-
   class Buffer < Abstract
     def initialize(size)
       @size = size
