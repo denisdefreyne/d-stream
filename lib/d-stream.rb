@@ -31,8 +31,8 @@ module DStream
     Transformers::Simple1.new(:take, n)
   end
 
-  def self.chunk_by
-    # …
+  def self.chunk(&block)
+    Transformers::SimpleB.new(:chunk, &block)
   end
 
   def self.zip(other)
