@@ -42,10 +42,6 @@ module DStream
   def self.compose(*procs)
     Transformers::Compose.new(procs)
   end
-
-  def self.apply(s, *procs)
-    compose(*procs).apply(s)
-  end
 end
 
 require_relative 'd-stream/transformers'

@@ -28,10 +28,8 @@ S = DStream
 
 indices = (1..(1.0 / 0.0))
 
-history =
-  S.apply(
-    events,
-
+history_builder =
+  S.compose(
     # calculate new state
     S.scan({}, &:merge),
 
@@ -53,6 +51,7 @@ history =
     S.map { |(a, b)| a.merge(row_is_current: b.nil?) },
   )
 
+history = history_builder.apply(events)
 history.each { |e| p e }
 ```
 
@@ -145,8 +144,7 @@ history_builder =
     add_row_is_current,
   )
 
-history = S.apply(events, history_builder)
-
+history = history_builder.apply(events)
 history.each { |h| p h }
 ```
 
@@ -157,35 +155,35 @@ The following functions create individual processors:
 * `map(&block)` (similar to `Enumerable#map`)
 
     ```ruby
-    S.apply((1..5), S.map(&:odd?)).to_a
+    S.map(&:odd?).apply(1..5).to_a
     # => [true, false, true, false, true]
     ```
 
 * `select(&block)` (similar to `Enumerable#select`)
 
     ```ruby
-    S.apply((1..5), S.select(&:odd?)).to_a
+    S.select(&:odd?).apply(1..5).to_a
     # => [1, 3, 5]
     ```
 
 * `reduce(&block)` (similar to `Enumerable#reduce`)
 
     ```ruby
-    S.apply((1..5), S.reduce(&:+))
+    S.reduce(&:+).apply(1..5)
     # => 15
     ```
 
 * `take(n)` (similar to `Enumerable#take`)
 
     ```ruby
-    S.apply((1..10), S.take(3)).to_a
+    S.take(3).apply(1..10).to_a
     # => [1, 2, 3]
     ```
 
 * `zip(other)` (similar to `Enumerable#zip`):
 
     ```ruby
-    S.apply((1..3), S.zip((10..13))).to_a
+    S.zip((10..13)).apply(1..3).to_a
     # => [[1, 10], [2, 11], [3, 12]]
     ```
 
@@ -194,32 +192,32 @@ The following functions create individual processors:
 * `with_next` yields an array containing the stream element and the next stream element, or nil when the end of the stream is reached:
 
     ```ruby
-    S.apply((1..5), S.with_next).to_a
+    S.with_next.apply(1..5).to_a
     # => [[1, 2], [2, 3], [3, 4], [4, 5], [5, nil]]
     ```
 
 * `scan(init, &block)` is similar to `reduce`, but rather than returning a single aggregated value, returns all intermediate aggregated values:
 
     ```ruby
-    S.apply((1..5), S.scan(0, &:+)).to_a
+    S.scan(0, &:+).apply(1..5).to_a
     # => [1, 3, 6, 10, 15]
     ```
 
 * `flatten2` yields the stream element if it is not an array, otherwise yields the stream element array’s contents:
 
     ```ruby
-    S.apply((1..5), S.with_next, S.flatten2).to_a
+    S.compose(S.with_next, S.flatten2).apply(1..5).to_a
     # => [1, 2, 2, 3, 3, 4, 4, 5, 5, nil]
     ```
 
-To apply one or more processors to a stream, use `.apply`:
+To apply a processor to a stream, use `#apply`:
 
 ```ruby
 S = DStream
 
 stream = ['hi']
 
-S.apply(stream, S.map(&:upcase)).to_a
+S.map(&:upcase).apply(stream).to_a
 # => ["HI"]
 ```
 
@@ -235,6 +233,6 @@ processor = S.compose(
   S.map(&:reverse),
 )
 
-S.apply(stream, processor).to_a
+processor.apply(stream).to_a
 # => ["IH"]
 ```

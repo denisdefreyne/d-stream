@@ -12,10 +12,8 @@ S = DStream
 
 indices = (1..(1.0 / 0.0))
 
-history =
-  S.apply(
-    events,
-
+history_builder =
+  S.compose(
     # calculate new state
     S.scan({}, &:merge),
 
@@ -36,5 +34,7 @@ history =
     S.with_next,
     S.map { |(a, b)| a.merge(row_is_current: b.nil?) }
   )
+
+history = history_builder.apply(events)
 
 history.each { |h| p h }
