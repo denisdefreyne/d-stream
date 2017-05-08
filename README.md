@@ -215,10 +215,10 @@ To apply a processor to a stream, use `#apply`:
 ```ruby
 S = DStream
 
-stream = ['hi']
+stream = ['hi', 'hello']
 
 S.map(&:upcase).apply(stream).to_a
-# => ["HI"]
+# => ["HI", "HELLO"]
 ```
 
 To combine one or more processors, use `.compose`:
@@ -226,7 +226,7 @@ To combine one or more processors, use `.compose`:
 ```ruby
 S = DStream
 
-stream = ['hi']
+stream = ['hi', 'hello']
 
 processor = S.compose(
   S.map(&:upcase),
@@ -234,5 +234,5 @@ processor = S.compose(
 )
 
 processor.apply(stream).to_a
-# => ["IH"]
+# => ["IH", "OLLEH"]
 ```
