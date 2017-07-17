@@ -46,6 +46,6 @@ history_builder =
     add_row_is_current
   )
 
-history = history_builder.apply(events)
+history = history_builder.call(events)
 
 history.each { |h| p h }

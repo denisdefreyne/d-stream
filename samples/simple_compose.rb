@@ -9,4 +9,4 @@ processor = S.compose(
   S.map(&:reverse)
 )
 
-p processor.apply(stream).to_a
+p processor.call(stream).to_a

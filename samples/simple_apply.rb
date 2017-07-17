@@ -4,4 +4,4 @@ S = DStream
 
 stream = ['hi']
 
-p S.map(&:upcase).apply(stream).to_a
+p S.map(&:upcase).call(stream).to_a

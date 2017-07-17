@@ -16,7 +16,7 @@ module DStream
         "<#{self.class} #{@sym.inspect}>"
       end
 
-      def apply(s)
+      def call(s)
         s.to_enum.lazy.__send__(@sym, &@block)
       end
     end
@@ -27,7 +27,7 @@ module DStream
         @arg = arg
       end
 
-      def apply(s)
+      def call(s)
         s.to_enum.lazy.__send__(@sym, @arg)
       end
     end
@@ -38,7 +38,7 @@ module DStream
         @block = block
       end
 
-      def apply(s)
+      def call(s)
         Enumerator.new do |y|
           acc = @init
 
@@ -55,7 +55,7 @@ module DStream
         @size = size
       end
 
-      def apply(s)
+      def call(s)
         q = SizedQueue.new(@size)
         stop = Object.new
 
@@ -78,7 +78,7 @@ module DStream
     end
 
     class WithNext < Abstract
-      def apply(s)
+      def call(s)
         Enumerator.new do |y|
           prev = nil
           have_prev = false
@@ -97,7 +97,7 @@ module DStream
     end
 
     class Flatten2 < Abstract
-      def apply(s)
+      def call(s)
         Enumerator.new do |y|
           s.each do |es|
             es.each { |e| y << e }
@@ -115,7 +115,7 @@ module DStream
         "<DStream::Zip #{@other.inspect}>"
       end
 
-      def apply(s)
+      def call(s)
         Enumerator.new do |y|
           s.lazy.zip(@other).each do |e, i|
             y << [e, i]
@@ -133,8 +133,8 @@ module DStream
         "<DStream::Compose #{@procs.map(&:inspect).join(' -> ')}>"
       end
 
-      def apply(s)
-        @procs.inject(s) { |acc, pr| pr.apply(acc) }
+      def call(s)
+        @procs.inject(s) { |acc, pr| pr.call(acc) }
       end
     end
   end

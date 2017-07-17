@@ -2,7 +2,7 @@ describe DStream do
   describe '.map' do
     let(:transformer) { DStream.map { |e| e * 2 } }
 
-    subject { transformer.apply([1, 2, 3]) }
+    subject { transformer.call([1, 2, 3]) }
 
     it { is_expected.to be_a(Enumerator) }
 
@@ -14,7 +14,7 @@ describe DStream do
   describe '.with_next' do
     let(:transformer) { DStream.with_next }
 
-    subject { transformer.apply([1, 2, 3]) }
+    subject { transformer.call([1, 2, 3]) }
 
     it { is_expected.to be_a(Enumerator) }
 
@@ -26,7 +26,7 @@ describe DStream do
   describe '.chunk' do
     let(:transformer) { DStream.chunk(&:even?) }
 
-    subject { transformer.apply([1, 1, 2, 3, 3, 3]) }
+    subject { transformer.call([1, 1, 2, 3, 3, 3]) }
 
     it { is_expected.to be_a(Enumerator) }
 

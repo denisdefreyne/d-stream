@@ -35,6 +35,6 @@ history_builder =
     S.map { |(a, b)| a.merge(row_is_current: b.nil?) }
   )
 
-history = history_builder.apply(events)
+history = history_builder.call(events)
 
 history.each { |h| p h }
