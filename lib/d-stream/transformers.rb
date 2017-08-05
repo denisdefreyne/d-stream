@@ -52,28 +52,11 @@ module DStream
 
     class Buffer < Abstract
       def initialize(size)
-        @size = size
+        @buf = DDBuffer.new(size)
       end
 
       def call(s)
-        q = SizedQueue.new(@size)
-        stop = Object.new
-
-        t =
-          Thread.new do
-            Thread.current.abort_on_exception = true
-            s.each { |e| q << e }
-            q << stop
-          end
-
-        Enumerator.new do |y|
-          loop do
-            e = q.pop
-            break if stop.equal?(e)
-            y << e
-          end
-          t.join
-        end.lazy
+        @buf.call(s)
       end
     end
 
