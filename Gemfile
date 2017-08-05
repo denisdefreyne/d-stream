@@ -4,3 +4,5 @@ gemspec
 
 gem 'rspec'
 gem 'rubocop'
+
+gem 'piperator'
