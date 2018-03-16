@@ -1,6 +1,11 @@
-Style/FileName:
+AllCops:
+  TargetRubyVersion: "2.3"
+
+Naming/FileName:
   Exclude:
     - 'lib/d-stream.rb'
+
+
 
 # ----- DISABLED (opinionated) -----
 
@@ -16,6 +21,11 @@ Documentation:
 # This prevents using exceptions with attributes.
 Style/RaiseArgs:
   Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  AllowedNames:
+    - "s"
+    - "n"
 
 
 

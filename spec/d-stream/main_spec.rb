@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DStream do
   describe '.map' do
     let(:transformer) { DStream.map { |e| e * 2 } }

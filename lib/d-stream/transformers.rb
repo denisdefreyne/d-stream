@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DStream
   module Transformers
     class Abstract

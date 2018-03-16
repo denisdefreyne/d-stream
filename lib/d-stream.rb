@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DStream
   def self.map(&block)
     Transformers::SimpleB.new(:map, &block)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'DStream for Piperator' do
   describe '.map' do
     example do
