@@ -17,14 +17,6 @@ RSpec/DescribeClass:
     - '**/spec/views/**/*'
     - 'spec/d-stream/piperator_spec.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: SkipBlocks, EnforcedStyle.
-# SupportedStyles: described_class, explicit
-RSpec/DescribedClass:
-  Exclude:
-    - 'spec/d-stream/main_spec.rb'
-
 # Offense count: 1
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
