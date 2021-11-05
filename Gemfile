@@ -7,4 +7,4 @@ gemspec
 gem 'piperator'
 gem 'rake'
 gem 'rspec'
-gem 'rubocop'
+gem 'rubocop', '~> 1.0'
