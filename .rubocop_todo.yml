@@ -23,13 +23,6 @@ RSpec/ExampleLength:
   Max: 7
 
 # Offense count: 1
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.
-# Include: **/*_spec*rb*, **/spec/**/*
-RSpec/FilePath:
-  Exclude:
-    - 'spec/d-stream/main_spec.rb'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: allowed_in_returns, forbidden
