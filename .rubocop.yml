@@ -30,8 +30,8 @@ Style/RaiseArgs:
 
 Naming/MethodParameterName:
   AllowedNames:
-    - "s"
-    - "n"
+    - "s" # string
+    - "n" # number; amount; quantity; count
 
 
 
