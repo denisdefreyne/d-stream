@@ -29,12 +29,6 @@ RSpec/FilePath:
   Exclude:
     - 'spec/d-stream/main_spec.rb'
 
-# Offense count: 3
-# Configuration parameters: IgnoreSharedExamples.
-RSpec/NamedSubject:
-  Exclude:
-    - 'spec/d-stream/main_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
