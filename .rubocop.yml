@@ -1,5 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: "3.0"
 
@@ -33,6 +37,17 @@ Naming/MethodParameterName:
 
 # ----- ENABLED (new) -----
 
+# rubocop-rspec
+RSpec/ExcessiveDocstringSpacing: # new in 2.5
+  Enabled: true
+RSpec/IdenticalEqualityAssertion: # new in 2.4
+  Enabled: true
+RSpec/SubjectDeclaration: # new in 2.5
+  Enabled: true
+RSpec/Rails/AvoidSetupHook: # new in 2.4
+  Enabled: true
+
+# rubocop (base)
 Gemspec/DateAssignment: # new in 1.10
   Enabled: true
 Layout/LineEndStringConcatenationIndentation: # new in 1.18
