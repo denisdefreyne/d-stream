@@ -26,15 +26,13 @@ events =
 
 S = DStream
 
-indices = (1..(1.0 / 0.0))
-
 history_builder =
   S.compose(
     # calculate new state
     S.scan({}, &:merge),
 
     # add `version`
-    S.zip(indices),
+    S.zip(1..),
     S.map { |(e, i)| e.merge(version: i) },
 
     # remove `id`
@@ -111,10 +109,9 @@ S = DStream
 merge =
   S.scan({}, &:merge),
 
-indices = (1..(1.0 / 0.0))
 add_version =
   S.compose(
-    S.zip(indices),
+    S.zip(1..),
     S.map { |(e,i)| e.merge(version: i) },
   )
 
