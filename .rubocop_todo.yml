@@ -38,12 +38,6 @@ RSpec/FilePath:
     - 'spec/d-stream/main_spec.rb'
 
 # Offense count: 3
-# Cop supports --auto-correct.
-RSpec/LeadingSubject:
-  Exclude:
-    - 'spec/d-stream/main_spec.rb'
-
-# Offense count: 3
 # Configuration parameters: IgnoreSharedExamples.
 RSpec/NamedSubject:
   Exclude:
