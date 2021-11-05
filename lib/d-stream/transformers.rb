@@ -10,6 +10,7 @@ module DStream
 
     class SimpleB < Abstract
       def initialize(sym, &block)
+        super()
         @sym = sym
         @block = block
       end
@@ -25,6 +26,7 @@ module DStream
 
     class Simple1 < Abstract
       def initialize(sym, arg)
+        super()
         @sym = sym
         @arg = arg
       end
@@ -36,6 +38,7 @@ module DStream
 
     class Scan < Abstract
       def initialize(init, &block)
+        super()
         @init = init
         @block = block
       end
@@ -54,6 +57,7 @@ module DStream
 
     class Buffer < Abstract
       def initialize(size)
+        super()
         @buf = DDBuffer.new(size)
       end
 
@@ -93,6 +97,7 @@ module DStream
 
     class Zip < Abstract
       def initialize(other)
+        super()
         @other = other
       end
 
@@ -111,6 +116,7 @@ module DStream
 
     class Compose < Abstract
       def initialize(procs)
+        super()
         @procs = procs
       end
 
