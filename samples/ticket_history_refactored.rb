@@ -23,14 +23,14 @@ add_version =
   )
 
 remove_id =
-  S.map { |e| e.reject { |k, _v| k == :id } }
+  S.map { |e| e.except(:id) }
 
 add_valid_dates =
   S.compose(
     S.with_next,
     S.map { |(a, b)| a.merge(valid_to: b ? b.fetch(:at) : nil) },
     S.map { |e| e.merge(valid_from: e.fetch(:at)) },
-    S.map { |e| e.reject { |k, _v| k == :at } }
+    S.map { |e| e.except(:at) }
   )
 
 add_row_is_current =
